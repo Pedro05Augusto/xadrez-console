@@ -1,4 +1,6 @@
-﻿namespace tabuleiro
+﻿using xadrez;
+
+namespace tabuleiro
 {
     class Tabuleiro
     {
