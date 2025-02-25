@@ -32,7 +32,7 @@ namespace tabuleiro
             return Pecas[pos.Linha, pos.Coluna];
         }
 
-        //Verifica se há uma Peca em determinada posição (utiliza da funcao ValidarPosicao, que caso a posição não seja válida, retorna uma Exceção)
+        //Verifica se há uma Peca em determinada posição (utiliza da funcao ValidarPosicao, caso a posição não seja válida, retorna uma Exceção)
         public bool ExistePeca(Posicao pos)
         {
             ValidarPosicao(pos);
@@ -42,10 +42,13 @@ namespace tabuleiro
         //Coloca a Peca do parâmetro, na posição do parâmetro
         public void ColocarPeca(Peca p, Posicao pos)
         {
+            //Verifica se já existe uma peça na posição, antes de colocar uma nova
             if (ExistePeca(pos))
             {
                 throw new TabuleiroException("Já existe uma peça nessa posição!");
             }
+
+            //Array Pecas recebe o a nova Peca na posição recebida na função
             Pecas[pos.Linha, pos.Coluna] = p;
             p.Posicao = pos;
         }
