@@ -3,7 +3,7 @@
     class TabuleiroException : Exception
     {
 
-        public TabuleiroException(string msg) : base(string msg){ 
+        public TabuleiroException(string msg) : base(msg){ 
         }
 
     }
