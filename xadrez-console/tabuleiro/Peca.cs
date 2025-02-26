@@ -1,4 +1,6 @@
-﻿namespace tabuleiro
+﻿using xadrez;
+
+namespace tabuleiro
 {
     class Peca
     {
@@ -13,6 +15,9 @@
             Cor = cor;
             Tab = tab;
             QteMovimentos = 0;
+        }
+        public void IncrementarQteMovimentos() {
+            QteMovimentos++;
         }
     }
 }
