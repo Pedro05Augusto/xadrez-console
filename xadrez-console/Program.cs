@@ -21,8 +21,6 @@ namespace xadrez_console {
                     partida.ExecutaMovimento(origem, destino);
                 }
 
-                
-
             } catch (TabuleiroException e)
             {
                 Console.WriteLine(e.Message);
