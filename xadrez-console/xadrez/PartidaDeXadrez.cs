@@ -1,4 +1,5 @@
-﻿using tabuleiro;
+﻿using System.Linq;
+using tabuleiro;
 
 namespace xadrez
 {
@@ -8,13 +9,17 @@ namespace xadrez
         public int turno { get; private set; }
         public Cor jogadorAtual { get; private set; }
         public bool terminada { get; set; }
+        private HashSet<Peca> Pecas;
+        private HashSet<Peca> Capturadas;
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8, 8);
             turno = 1;
             jogadorAtual = Cor.Branca;
-            ColocarPecas();
             terminada = false;
+            Pecas = new HashSet<Peca>();
+            Capturadas = new HashSet<Peca>();
+            ColocarPecas();
         }
 
         public void ExecutaMovimento(Posicao origem, Posicao destino) {
@@ -22,6 +27,9 @@ namespace xadrez
             p.IncrementarQteMovimentos();
             Peca pecaCapturada = tab.RetirarPeca(destino);
             tab.ColocarPeca(p, destino);
+            if (pecaCapturada != null) { 
+                Capturadas.Add(pecaCapturada);
+            }
         }
 
         public void RealizaJogada(Posicao origem, Posicao destino) {
@@ -60,20 +68,51 @@ namespace xadrez
             }
         }
 
-        private void ColocarPecas() {
-            tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('c', 1).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('c', 2).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('d', 2).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('e', 2).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('e', 1).ToPosicao());
-            tab.ColocarPeca(new Rei(tab, Cor.Branca), new PosicaoXadrez('d', 1).ToPosicao());
+        public HashSet<Peca> PecasCapturadas(Cor cor)
+        {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach (Peca x in Capturadas) {
+                if (x.Cor == cor)
+                {
+                    aux.Add(x);
+                }
+            }
+            return aux;
+        }
 
-            tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('c', 8).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('c', 7).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('d', 7).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('e', 7).ToPosicao());
-            tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('e',8).ToPosicao());
-            tab.ColocarPeca(new Rei(tab, Cor.Preta), new PosicaoXadrez('d', 8).ToPosicao());
+        public HashSet<Peca> PecasEmJogo(Cor cor)
+        {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach (Peca x in Pecas)
+            {
+                if (x.Cor == cor)
+                {
+                    aux.Add(x);
+                }
+            }
+            aux.ExceptWith(PecasCapturadas(cor));
+            return aux;
+        }
+
+        public void ColocarNovaPeca(Peca peca, char coluna, int linha) {
+            tab.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).ToPosicao());
+            Pecas.Add(peca);
+        }
+
+        private void ColocarPecas() {
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'c', 1);
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'c', 2);
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'd', 2);
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'e', 2);
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'e', 1);
+            ColocarNovaPeca(new Rei(tab, Cor.Branca), 'd', 1);
+
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'c', 8);
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'c', 7);
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'd', 7);
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'e', 7);
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'e', 8);
+            ColocarNovaPeca(new Rei(tab, Cor.Preta), 'd', 8);
         }
     }
 }
