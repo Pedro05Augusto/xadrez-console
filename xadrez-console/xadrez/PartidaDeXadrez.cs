@@ -181,14 +181,42 @@ namespace xadrez
             tab.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).ToPosicao());
             Pecas.Add(peca);
         }
-
+        
         private void ColocarPecas() {
-            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'c', 1);
-            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'h', 7);
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'a', 1);
+            ColocarNovaPeca(new Cavalo(tab, Cor.Branca), 'b', 1);
+            ColocarNovaPeca(new Bispo(tab, Cor.Branca), 'c', 1);
             ColocarNovaPeca(new Rei(tab, Cor.Branca), 'd', 1);
+            ColocarNovaPeca(new Dama(tab, Cor.Branca), 'e', 1);
+            ColocarNovaPeca(new Bispo(tab, Cor.Branca), 'f', 1);
+            ColocarNovaPeca(new Cavalo(tab, Cor.Branca), 'g', 1);
+            ColocarNovaPeca(new Torre(tab, Cor.Branca), 'h', 1);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'a', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'b', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'c', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'd', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'e', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'f', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'g', 2);
+            ColocarNovaPeca(new Peao(tab, Cor.Branca), 'h', 2);
 
-            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'b', 8);
-            ColocarNovaPeca(new Rei(tab, Cor.Preta), 'a', 8);
+
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'a', 8);
+            ColocarNovaPeca(new Cavalo(tab, Cor.Preta), 'b', 8);
+            ColocarNovaPeca(new Bispo(tab, Cor.Preta), 'c', 8);
+            ColocarNovaPeca(new Dama(tab, Cor.Preta), 'd', 8);
+            ColocarNovaPeca(new Rei(tab, Cor.Preta), 'e', 8);
+            ColocarNovaPeca(new Bispo(tab, Cor.Preta), 'f', 8);
+            ColocarNovaPeca(new Cavalo(tab, Cor.Preta), 'g', 8);
+            ColocarNovaPeca(new Torre(tab, Cor.Preta), 'h', 8);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'a', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'b', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'c', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'd', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'e', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'f', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'g', 7);
+            ColocarNovaPeca(new Peao(tab, Cor.Preta), 'h', 7);
         }
     }
 }
