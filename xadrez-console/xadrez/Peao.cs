@@ -5,9 +5,11 @@ namespace xadrez
 {
     class Peao : Peca
     {
+        private PartidaDeXadrez Partida;
         private int Direcao;
-        public Peao(Tabuleiro tab, Cor cor) : base(tab, cor)
+        public Peao(Tabuleiro tab, Cor cor, PartidaDeXadrez partida) : base(tab, cor)
         {
+            Partida = partida;
         }
 
         public override string ToString()
@@ -58,6 +60,33 @@ namespace xadrez
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
+            if (Cor == Cor.Branca && Posicao.Linha == 3)
+            {
+                Posicao posicaoEsquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                if (Tab.PosicaoValida(posicaoEsquerda) && ExisteInimigo(posicaoEsquerda) && Tab.Peca(posicaoEsquerda) == Partida.vulneravelEnPassant) {
+                    mat[posicaoEsquerda.Linha -1, posicaoEsquerda.Coluna] = true;
+                }
+
+                Posicao posicaoDireita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                if (Tab.PosicaoValida(posicaoDireita) && ExisteInimigo(posicaoDireita) && Tab.Peca(posicaoDireita) == Partida.vulneravelEnPassant)
+                {
+                    mat[posicaoDireita.Linha - 1, posicaoDireita.Coluna] = true;
+                }
+            }
+            else if (Cor == Cor.Preta && Posicao.Linha == 4) {
+                Posicao posicaoEsquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                if (Tab.PosicaoValida(posicaoEsquerda) && ExisteInimigo(posicaoEsquerda) && Tab.Peca(posicaoEsquerda) == Partida.vulneravelEnPassant)
+                {
+                    mat[posicaoEsquerda.Linha + 1, posicaoEsquerda.Coluna] = true;
+                }
+
+                Posicao posicaoDireita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                if (Tab.PosicaoValida(posicaoDireita) && ExisteInimigo(posicaoDireita) && Tab.Peca(posicaoDireita) == Partida.vulneravelEnPassant)
+                {
+                    mat[posicaoDireita.Linha + 1, posicaoDireita.Coluna] = true;
+                }
+            }
+
             return mat;
         }
     }
